@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Step Registration Form</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body style="margin:0; padding:0; overflow-x:hidden;">
+
+  <!-- Progress bar -->
+  <div class="progress-bar">
+    <div class="step-progress-container">
+      <div class="step active" id="step1">
+        <div class="circle">1</div>
+        <span class="label">Details</span>
+      </div>
+      <div class="line"></div>
+      <div class="step" id="step2">
+        <div class="circle">2</div>
+        <span class="label">Payment</span>
+      </div>
+      <div class="line"></div>
+      <div class="step" id="step3">
+        <div class="circle">3</div>
+        <span class="label">Upload</span>
+      </div>
+      <div class="line"></div>
+      <div class="step" id="step4">
+        <div class="circle">4</div>
+        <span class="label">Confirm</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scrollable form container -->
+  <div class="form-container" style="overflow-y:auto; max-height:100vh; padding-bottom:30px;">
+    
+    <!-- Step 1 -->
+    <div class="form-step active" id="form-step-1">
+      <div class="card">
+        <h2>Student Details</h2>
+        <form id="student-form">
+          <div class="input-group">
+            <label for="student-name">Student Name</label>
+            <input type="text" id="student-name" name="name" placeholder="Your Name" required>
+          </div>
+          <div class="input-group">
+            <label for="college">College Name</label>
+            <input type="text" id="college" name="college" placeholder="Your College" required>
+          </div>
+          <div class="input-group">
+            <label for="student-email">Email Address</label>
+            <input type="email" id="student-email" name="email" placeholder="Your Email" required>
+          </div>
+          
+          <div class="input-group">
+            <label for="event-name">Select Event</label>
+            <select id="event-name" name="event" required>
+              <option value="">-- Please Select --</option>
+              <option value="Event A">Event A</option>
+              <option value="Event B">Event B</option>
+              <option value="Event C">Event C</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn next-btn">Next Step</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="form-step" id="form-step-2">
+      <div class="card">
+        <h2>Payment Instructions</h2>
+        <p class="instruction-text">Please scan the QR code below to pay the registration fee.</p>
+        <div class="amount-display">
+          Amount: <span class="amount-value">₹500</span>
+        </div>
+        <div class="qr-code-container">
+          <img src="https://i.imgur.com/your-qr-code.png" alt="QR Code" class="qr-code" style="max-width:100%; height:auto;">
+        </div>
+        <button class="btn next-btn" data-next-step="3">I Have Paid</button>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="form-step" id="form-step-3">
+      <div class="card">
+        <h2>Payment Confirmation</h2>
+        <p class="instruction-text">Enter the UTR number and upload a screenshot of the payment.</p>
+
+        <!-- ✅ FIXED: Added proper form -->
+        <form id="payment-form" enctype="multipart/form-data">
+          <input type="hidden" name="registrationId" id="hidden-registration-id">
+
+          <div class="input-group">
+            <label for="utr-number">UTR Number</label>
+            <input type="text" id="utr-number" name="utrNumber" placeholder="Enter UTR / Transaction ID" required>
+          </div>
+
+          <div class="input-group file-upload-group">
+            <label for="payment-screenshot">Payment Screenshot</label>
+            <input type="file" id="payment-screenshot" name="screenshot" accept="image/*" required>
+            <img id="image-preview" src="#" alt="Image Preview"
+                 style="max-width:100%; max-height:300px; display:none; margin-top:10px; border:1px solid #ddd; border-radius:8px;">
+          </div>
+
+          <button type="submit" class="btn">Submit Payment</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="form-step" id="form-step-4">
+      <div class="card confirmation-card">
+        <div class="confirmation-icon"><i class="fas fa-check-circle"></i></div>
+        <h2>Registration Complete!</h2>
+        <p>Thank you for registering. Your details have been submitted successfully.</p>
+        <p>We have sent a confirmation email to your registered email address.</p>
+        <button class="btn back-to-home-btn">Go Back to Home</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin login link -->
+  <div class="admin-link-container">
+     <a href="admin-login.html" class="admin-login-button">Admin Login</a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

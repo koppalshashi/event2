@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admindashboard.css">
+</head>
+<body>
+
+    <div id="dashboardMessage" style="position:fixed; top:20px; right:20px; padding:10px 20px; border-radius:5px; z-index:1000; display:none; transition: opacity 0.3s;"></div>
+
+    <div class="card" style="max-width:95%; margin:20px auto;">
+        <h2>Admin Dashboard</h2>
+        <button class="btn btn-logout" id="logoutBtn" style="float:right; margin-bottom:10px;">Logout</button>
+        <div style="clear:both;"></div>
+
+        <table border="1" cellpadding="10" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>College</th>
+                    <th>Email</th>
+                    <th>Event</th>
+                    <th>UTR</th>
+                    <th>Screenshot</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="registrationTable">
+                </tbody>
+        </table>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

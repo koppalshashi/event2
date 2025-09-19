@@ -1,0 +1,314 @@
+/* General & Body Styles */
+:root {
+    --primary-color: #3498db;
+    --primary-dark: #2980b9;
+    --text-color: #333;
+    --background-color: #f0f2f5;
+    --card-background: #fff;
+    --border-color: #ddd;
+    --success-color: #2ecc71;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    padding: 20px 0;
+    background-color: var(--card-background);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.step-progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
+    transition: color 0.3s;
+}
+
+.step.active .circle,
+.step.active .label {
+    color: var(--primary-color);
+}
+
+.step .circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--background-color);
+    color: #777;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ccc;
+    font-weight: 600;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.step.active .circle {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+.line {
+    flex-grow: 1;
+    height: 3px;
+    background-color: #ccc;
+    transition: background-color 0.3s;
+}
+
+.step.active + .line {
+    background-color: var(--primary-color);
+}
+
+.step.active ~ .line {
+    background-color: #ccc;
+}
+
+/* Form Container & Card */
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.form-step {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.form-step.active {
+    display: block;
+}
+
+.card {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+/* Form Elements */
+h2 {
+    color: var(--primary-dark);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.instruction-text {
+    text-align: center;
+    color: #777;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.amount-display {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+}
+
+.qr-code-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.qr-code {
+    border: 5px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.file-upload-group {
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#payment-screenshot {
+    display: none;
+}
+
+.file-upload-group label {
+    cursor: pointer;
+}
+
+/* Confirmation Step */
+.confirmation-card {
+    text-align: center;
+}
+
+.confirmation-icon {
+    font-size: 4rem;
+    color: var(--success-color);
+    margin-bottom: 15px;
+}
+
+/* Admin Link */
+.admin-link-container {
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+.admin-login-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.admin-login-link:hover {
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .step-progress-container {
+        flex-wrap: wrap;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .step .label {
+        font-size: 12px;
+    }
+
+    .line {
+        display: none;
+    }
+    
+    .progress-bar {
+        padding: 15px 10px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Add this new CSS block to your existing style.css file */
+.admin-login-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #555; /* A neutral color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 101; /* Ensure it's above the progress bar */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.admin-login-button:hover {
+    background-color: #333;
+    transform: scale(1.05);
+}
+
+/* Optional: Add a media query for smaller screens to move the button */
+@media (max-width: 600px) {
+    .admin-login-button {
+        top: 10px;
+        right: 10px;
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+}
