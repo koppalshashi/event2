@@ -39,74 +39,79 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Load registrations
-    async function loadRegistrations() {
-        if (registrationTable) {
-            registrationTable.innerHTML = '<tr><td colspan="8" style="text-align:center;">Loading...</td></tr>';
-        }
-        try {
-            const response = await fetch(`${window.location.origin}/api/admin/registrations`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            if (!response.ok) {
-                if (response.status === 401 || response.status === 403) {
-                    localStorage.removeItem('adminToken');
-                    window.location.href = 'admin-login.html';
-                }
-                throw new Error('Failed to fetch registrations');
-            }
-
-            const registrations = await response.json();
-            registrationTable.innerHTML = ''; // Clear loading message
-
-            if (registrations.length === 0) {
-                registrationTable.innerHTML = '<tr><td colspan="8" style="text-align:center;">No registrations found.</td></tr>';
-                return;
-            }
-
-            registrations.forEach(reg => {
-                const tr = document.createElement('tr');
-                tr.dataset.id = reg._id;
-
-                const name = `<td>${reg.studentName}</td>`;
-                const college = `<td>${reg.college}</td>`;
-                const email = `<td>${reg.email}</td>`;
-                const event = `<td>${reg.event}</td>`;
-                const utr = `<td>${reg.payment ? reg.payment.utrNumber : 'N/A'}</td>`;
-
-                let screenshotHTML = `<td>N/A</td>`;
-                if (reg.payment && reg.payment._id) {
-                    screenshotHTML = `<td>
-                        <a href="${window.location.origin}/payment/${reg.payment._id}/screenshot" target="_blank">View</a>
-                    </td>`;
-                }
-
-                let statusHTML, actionHTML;
-                if (reg.isApproved) {
-                    statusHTML = `<td><span class="status-approved">✅ Approved</span></td>`;
-                    actionHTML = `<td>—</td>`;
-                } else if (reg.isRejected) {
-                    statusHTML = `<td><span class="status-rejected">❌ Rejected</span></td>`;
-                    actionHTML = `<td>—</td>`;
-                } else {
-                    statusHTML = `<td><span class="status-pending">⏳ Pending</span></td>`;
-                    actionHTML = `<td>
-                        <div class="action-buttons">
-                            <button class="btn btn-approve" data-id="${reg._id}">Approve</button>
-                            <button class="btn btn-reject" data-id="${reg._id}">Reject</button>
-                        </div>
-                    </td>`;
-                }
-
-                tr.innerHTML = name + college + email + event + utr + screenshotHTML + statusHTML + actionHTML;
-                registrationTable.appendChild(tr);
-            });
-
-        } catch (err) {
-            console.error('Error fetching registrations:', err);
-            showTemporaryMessage('Error fetching registrations.', 'error');
-        }
+   async function loadRegistrations() {
+    if (registrationTable) {
+        registrationTable.innerHTML = '<tr><td colspan="9" style="text-align:center;">Loading...</td></tr>';
     }
+    try {
+        const response = await fetch(`${window.location.origin}/api/admin/registrations`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!response.ok) {
+            if (response.status === 401 || response.status === 403) {
+                localStorage.removeItem('adminToken');
+                window.location.href = 'admin-login.html';
+            }
+            throw new Error('Failed to fetch registrations');
+        }
+
+        const registrations = await response.json();
+        registrationTable.innerHTML = ''; // Clear loading message
+
+        if (registrations.length === 0) {
+            registrationTable.innerHTML = '<tr><td colspan="9" style="text-align:center;">No registrations found.</td></tr>';
+            return;
+        }
+
+        // Use the forEach loop to add a serial number
+        registrations.forEach((reg, index) => { // <-- Add 'index' here
+            const tr = document.createElement('tr');
+            tr.dataset.id = reg._id;
+
+            // New: Add a serial number cell
+            const serialNumber = `<td>${index + 1}</td>`; // <-- Use index + 1
+
+            const name = `<td>${reg.studentName}</td>`;
+            const college = `<td>${reg.college}</td>`;
+            const email = `<td>${reg.email}</td>`;
+            const event = `<td>${reg.event}</td>`;
+            const utr = `<td>${reg.payment ? reg.payment.utrNumber : 'N/A'}</td>`;
+
+            let screenshotHTML = `<td>N/A</td>`;
+            if (reg.payment && reg.payment._id) {
+                screenshotHTML = `<td>
+                    <a href="${window.location.origin}/payment/${reg.payment._id}/screenshot" target="_blank">View</a>
+                </td>`;
+            }
+
+            let statusHTML, actionHTML;
+            if (reg.isApproved) {
+                statusHTML = `<td><span class="status-approved">✅ Approved</span></td>`;
+                actionHTML = `<td>—</td>`;
+            } else if (reg.isRejected) {
+                statusHTML = `<td><span class="status-rejected">❌ Rejected</span></td>`;
+                actionHTML = `<td>—</td>`;
+            } else {
+                statusHTML = `<td><span class="status-pending">⏳ Pending</span></td>`;
+                actionHTML = `<td>
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" data-id="${reg._id}">Approve</button>
+                        <button class="btn btn-reject" data-id="${reg._id}">Reject</button>
+                    </div>
+                </td>`;
+            }
+
+            // Combine all the HTML strings, starting with the serial number
+            tr.innerHTML = serialNumber + name + college + email + event + utr + screenshotHTML + statusHTML + actionHTML;
+            registrationTable.appendChild(tr);
+        });
+
+    } catch (err) {
+        console.error('Error fetching registrations:', err);
+        showTemporaryMessage('Error fetching registrations.', 'error');
+    }
+}
 
     // Approve / Reject actions (event delegation)
     if (registrationTable) {
