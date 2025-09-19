@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const eventName = document.getElementById('event-name').value;
 
         try {
-            const response = await fetch('https://event1-vk4i.onrender.com/register', {
+            const response = await fetch(`${window.location.origin}/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ studentName, college, email: studentEmail, event: eventName })
@@ -46,11 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             if (data.registrationId) {
                 registrationId = data.registrationId;
-                document.getElementById('hidden-registration-id').value = registrationId; // ✅ pass into step 3
+                document.getElementById('hidden-registration-id').value = registrationId;
                 currentStep = 2;
                 showStep(currentStep);
             } else {
-                throw new Error('No registration ID received.');
+                throw new Error(data.message || 'No registration ID received.');
             }
         } catch (err) {
             console.error('Error:', err);
@@ -83,16 +83,19 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('screenshot', screenshotFile);
 
         try {
-            const response = await fetch('https://event1-vk4i.onrender.com/payment', {
+            const response = await fetch(`${window.location.origin}/payment`, {
                 method: 'POST',
                 body: formData
             });
 
             const data = await response.json();
-            console.log(data.message);
-
-            currentStep = 4;
-            showStep(currentStep);
+            if (response.ok) {
+                console.log(data.message);
+                currentStep = 4;
+                showStep(currentStep);
+            } else {
+                alert(data.message || "Payment submission failed.");
+            }
         } catch (err) {
             console.error('Error:', err);
             alert('Something went wrong submitting payment.');
@@ -107,7 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         document.getElementById('event-name').value = '';
-        document.getElementById('image-preview').style.display = 'none';
+        const imagePreview = document.getElementById('image-preview');
+        imagePreview.src = '#';
+        imagePreview.style.display = 'none';
 
         registrationId = null;
         currentStep = 1;
@@ -132,4 +137,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
