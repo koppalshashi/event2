@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const eventName = document.getElementById('event-name').value;
 
         try {
-            const response = await fetch('http://localhost:5000/register', {
+            const response = await fetch('https://event1-vk4i.onrender.com/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ studentName, college, email: studentEmail, event: eventName })
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('screenshot', screenshotFile);
 
         try {
-            const response = await fetch('http://localhost:5000/payment', {
+            const response = await fetch('https://event1-vk4i.onrender.com/payment', {
                 method: 'POST',
                 body: formData
             });
@@ -132,3 +132,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
