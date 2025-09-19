@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 let screenshotHTML = `<td>N/A</td>`;
                 if (reg.payment && reg.payment._id) {
                     screenshotHTML = `<td>
-                        <a class="screenshot-link" href="${window.location.origin}/payment/${reg.payment._id}/screenshot" target="_blank">View</a>
+                        <a class="screenshot-link" href="https://event2-vo5p.onrender.com/payment/${reg.payment._id}/screenshot" target="_blank">View</a>
                     </td>`;
                 }
 
@@ -157,3 +157,4 @@ function showTemporaryMessage(message, type) {
         msgDiv.style.display = "none";
     }, 4000);
 }
+
