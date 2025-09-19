@@ -1,8 +1,4 @@
 // admin.js
-// admin.js
-
-// Replace with your Render backend URL
-const BACKEND_URL = 'https://event2-vo5p.onrender.com';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('adminToken');
@@ -14,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tableBody = document.getElementById('registrationTable');
     const logoutBtn = document.getElementById('logoutBtn');
 
+    // Logout button
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
             localStorage.removeItem('adminToken');
@@ -24,10 +21,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Function to load registrations
     async function loadRegistrations() {
         try {
-const response = await fetch(`${BACKEND_URL}/api/admin/registrations`, {
-    headers: { Authorization: `Bearer ${token}` },
-});
-
+            const response = await fetch(`${window.location.origin}/api/admin/registrations`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
 
             if (!response.ok) {
                 if (response.status === 401 || response.status === 403) {
@@ -57,7 +53,7 @@ const response = await fetch(`${BACKEND_URL}/api/admin/registrations`, {
                 let screenshotHTML = `<td>N/A</td>`;
                 if (reg.payment && reg.payment._id) {
                     screenshotHTML = `<td>
-                        <a class="screenshot-link" href="${BACKEND_URL}/payment/${reg.payment._id}/screenshot" target="_blank">View</a>
+                        <a class="screenshot-link" href="${window.location.origin}/payment/${reg.payment._id}/screenshot" target="_blank">View</a>
                     </td>`;
                 }
 
@@ -71,13 +67,12 @@ const response = await fetch(`${BACKEND_URL}/api/admin/registrations`, {
                     actionHTML = `<td>—</td>`;
                 } else {
                     statusHTML = `<td><span class="status-pending">⏳ Pending</span></td>`;
-                    actionHTML = `
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-approve" data-id="${reg._id}">Approve</button>
-                                <button class="btn btn-reject" data-id="${reg._id}">Reject</button>
-                            </div>
-                        </td>`;
+                    actionHTML = `<td>
+                        <div class="action-buttons">
+                            <button class="btn btn-approve" data-id="${reg._id}">Approve</button>
+                            <button class="btn btn-reject" data-id="${reg._id}">Reject</button>
+                        </div>
+                    </td>`;
                 }
 
                 tr.innerHTML = name + college + email + event + utr + screenshotHTML + statusHTML + actionHTML;
@@ -90,7 +85,7 @@ const response = await fetch(`${BACKEND_URL}/api/admin/registrations`, {
                     const regId = e.target.dataset.id;
                     if (confirm('Approve this registration?')) {
                         try {
-                            const res = await fetch(`${BACKEND_URL}/api/admin/approve/${regId}`, {
+                            const res = await fetch(`${window.location.origin}/api/admin/approve/${regId}`, {
                                 method: 'POST',
                                 headers: { Authorization: `Bearer ${token}` },
                             });
@@ -115,7 +110,7 @@ const response = await fetch(`${BACKEND_URL}/api/admin/registrations`, {
                     const regId = e.target.dataset.id;
                     if (confirm('Reject this registration? This cannot be undone.')) {
                         try {
-                            const res = await fetch(`${BACKEND_URL}/api/admin/reject/${regId}`, {
+                            const res = await fetch(`${window.location.origin}/api/admin/reject/${regId}`, {
                                 method: 'POST',
                                 headers: { Authorization: `Bearer ${token}` },
                             });
@@ -162,5 +157,3 @@ function showTemporaryMessage(message, type) {
         msgDiv.style.display = "none";
     }, 4000);
 }
-
-
