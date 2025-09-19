@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch('https://event1-vk4i.onrender.com/api/admin/registrations', {
+        const response = await fetch('https://event2-vo5p.onrender.com/api/admin/registrations', {
             headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Screenshot link (using new class and fixed path)
             let screenshotHTML = `<td>N/A</td>`;
             if (reg.payment && reg.payment.screenshotPath) {
-                screenshotHTML = `<td><a class="screenshot-link" href="https://event1-vk4i.onrender.com/${reg.payment.screenshotPath}" target="_blank">View</a></td>`;
+                screenshotHTML = `<td><a class="screenshot-link" href="https://event2-vo5p.onrender.com/${reg.payment.screenshotPath}" target="_blank">View</a></td>`;
             }
 
             // Status and Action based on new data fields
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const regId = e.target.dataset.id;
                 if (confirm('Approve this registration?')) {
                     try {
-                        const res = await fetch(`https://event1-vk4i.onrender.com/api/admin/approve/${regId}`, {
+                        const res = await fetch(`https://event2-vo5p.onrender.com/api/admin/approve/${regId}`, {
                             method: 'POST',
                             headers: { Authorization: `Bearer ${token}` },
                         });
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const regId = e.target.dataset.id;
                 if (confirm('Reject this registration? This cannot be undone.')) {
                     try {
-                        const res = await fetch(`https://event1-vk4i.onrender.com/api/admin/reject/${regId}`, {
+                        const res = await fetch(`https://event2-vo5p.onrender.com/api/admin/reject/${regId}`, {
                             method: 'POST',
                             headers: { Authorization: `Bearer ${token}` },
                         });
@@ -156,4 +156,5 @@ function showTemporaryMessage(message, type) {
         msgDiv.style.display = "none";
     }, 4000); // Hide after 4 seconds
 }
+
 
