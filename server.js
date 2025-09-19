@@ -2,7 +2,7 @@
 // admin.js
 
 // Replace with your Render backend URL
-const BACKEND_URL = 'https://event1-vk4i.onrender.com';
+const BACKEND_URL = 'https://event2-vo5p.onrender.com';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('adminToken');
@@ -162,4 +162,5 @@ function showTemporaryMessage(message, type) {
         msgDiv.style.display = "none";
     }, 4000);
 }
+
 
